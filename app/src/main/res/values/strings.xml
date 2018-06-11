@@ -4,4 +4,10 @@
     <string name="background_image">Background Image</string>
     <string name="enter_password">Enter Password</string>
     <string name="login">Login</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_email_adress">Enter Email Adress</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="repeat_the_password">Repeat the password</string>
+    <string name="register_me">Register Me!</string>
 </resources>
