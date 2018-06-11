@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,10 +42,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             String pass = mPassword.getText().toString();
 
             cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME + " WHERE " + DBHelper.uemail + "=? AND " + DBHelper.upass + "=?", new String[]{email, pass});
-            if (cursor != null) {
+            if (cursor != null && cursor.moveToFirst()) {
+                Log.d(Login.class.getSimpleName(), "cursor count: " + cursor.getCount());
                 if (cursor.getCount() > 0) {
-                    Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                    String id = cursor.getString(cursor.getColumnIndex("ID"));
+                    Toast.makeText(getApplicationContext(), "Login Success: ID"+id, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Login.this,MainActivity.class);
+                    intent.putExtra("UID",id);
                     startActivity(intent);
 
                 } else if(cursor.getCount() < 1){
