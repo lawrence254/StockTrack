@@ -37,8 +37,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v){
         if(v == mLogin){
-            String pass = mPassword.toString();
-            String email = mEmail.toString();
+            String email = mEmail.getText().toString();
+            String pass = mPassword.getText().toString();
 
             cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME + " WHERE " + DBHelper.uemail + "=? AND " + DBHelper.upass + "=?", new String[]{email, pass});
             if (cursor != null) {
