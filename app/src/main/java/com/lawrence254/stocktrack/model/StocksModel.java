@@ -1,32 +1,44 @@
 
 package com.lawrence254.stocktrack.model;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class StocksModel {
 
-    @SerializedName("AAPL")
+    @SerializedName("quote")
     @Expose
-    private AAPL aAPL;
-    @SerializedName("FB")
+    private Quote quote;
+    @SerializedName("news")
     @Expose
-    private FB fB;
+    private List<News> news = null;
+    @SerializedName("chart")
+    @Expose
+    private List<Chart> chart = null;
 
-    public AAPL getAAPL() {
-        return aAPL;
+    public Quote getQuote() {
+        return quote;
     }
 
-    public void setAAPL(AAPL aAPL) {
-        this.aAPL = aAPL;
+    public void setQuote(Quote quote) {
+        this.quote = quote;
     }
 
-    public FB getFB() {
-        return fB;
+    public List<News> getNews() {
+        return news;
     }
 
-    public void setFB(FB fB) {
-        this.fB = fB;
+    public void setNews(List<News> news) {
+        this.news = news;
+    }
+
+    public List<Chart> getChart() {
+        return chart;
+    }
+
+    public void setChart(List<Chart> chart) {
+        this.chart = chart;
     }
 
 }
