@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="382dp"
+        android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:contentDescription="@string/background_image"
         android:scaleType="centerCrop"
