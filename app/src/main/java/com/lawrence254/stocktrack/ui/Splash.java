@@ -1,9 +1,11 @@
-package com.lawrence254.stocktrack;
+package com.lawrence254.stocktrack.ui;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.lawrence254.stocktrack.R;
 
 public class Splash extends AppCompatActivity {
 

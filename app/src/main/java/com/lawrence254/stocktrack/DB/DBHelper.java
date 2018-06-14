@@ -1,4 +1,4 @@
-package com.lawrence254.stocktrack;
+package com.lawrence254.stocktrack.DB;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

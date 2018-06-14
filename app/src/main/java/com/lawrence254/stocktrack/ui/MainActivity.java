@@ -1,4 +1,4 @@
-package com.lawrence254.stocktrack;
+package com.lawrence254.stocktrack.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.lawrence254.stocktrack.DB.DBHelper;
+import com.lawrence254.stocktrack.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

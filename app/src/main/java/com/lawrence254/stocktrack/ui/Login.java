@@ -1,4 +1,4 @@
-package com.lawrence254.stocktrack;
+package com.lawrence254.stocktrack.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.lawrence254.stocktrack.DB.DBHelper;
+import com.lawrence254.stocktrack.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +50,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 if (cursor.getCount() > 0) {
                     String id = cursor.getString(cursor.getColumnIndex("ID"));
                     Toast.makeText(getApplicationContext(), "Login Success: ID"+id, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login.this,MainActivity.class);
+                    Intent intent = new Intent(Login.this,profile.class);
                     intent.putExtra("UID",id);
                     startActivity(intent);
 

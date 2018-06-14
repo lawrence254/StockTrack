@@ -1,4 +1,4 @@
-package com.lawrence254.stocktrack;
+package com.lawrence254.stocktrack.ui;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.lawrence254.stocktrack.DB.DBHelper;
+import com.lawrence254.stocktrack.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
