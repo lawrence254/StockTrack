@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 if (cursor.getCount() > 0) {
                     String id = cursor.getString(cursor.getColumnIndex("ID"));
                     Toast.makeText(getApplicationContext(), "Login Success: ID"+id, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login.this,profile.class);
+                    Intent intent = new Intent(Login.this,MainActivity.class);
                     intent.putExtra("UID",id);
                     startActivity(intent);
 
