@@ -58,30 +58,11 @@ public class IEXService {
             for (Iterator<String> it = jsonObject.keys(); it.hasNext(); ) {
                 Object key = it.next();
 
-                Log.d("Iterator ", "Result: "+key.toString());
+                Log.d("Iterator ", "Result: " + key.toString());
                 StocksModel stocksModel = gson.fromJson(jsonObject.getJSONObject(key.toString()).toString(), StocksModel.class);
+
                 stocks.add(stocksModel);
-//                if (key instanceof StocksModel) {
-//                    Iterator<Quote>quoteIterator = (Iterator<Quote>) ((StocksModel) key).getQuote();
-//                    while (quoteIterator.hasNext()){
-//                        Log.d("Secondary", "Quote IT: "+quoteIterator);
-//                    }
-//                }
             }
-
-
-//            Iterator<Quote> iterator =quotes.iterator();
-//            while (iterator.hasNext()){
-//                Quote quote=iterator.next();
-//                Log.d("Results", "Fetched"+quote.getHigh());
-//            }
-//            for (Iterator<Quote> iterator = json.keys(); iterator.hasNext();) {
-//                Quote key = iterator.next();
-//                Object value = json.get(key);
-//                if (value instanceof Quote) {
-//                    quotes.put(key, (Quote) value);
-//                }
-//            }
 
         } catch (IOException e) {
             e.printStackTrace();
