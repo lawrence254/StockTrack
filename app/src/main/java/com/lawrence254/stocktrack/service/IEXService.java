@@ -11,8 +11,11 @@ import com.lawrence254.stocktrack.model.Quote;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.Call;
@@ -27,11 +30,10 @@ public class IEXService {
 
     public static void loadStocks(Callback callback){
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BASE_URL).newBuilder();
-        urlBuilder.addPathSegment(Constants.SYMBOLS);
-        urlBuilder.addPathSegment(Constants.TYPES);
-        urlBuilder.addPathSegment(Constants.RANGE);
-        urlBuilder.addPathSegment(Constants.LAST);
-
+        urlBuilder.addQueryParameter(Constants.SYMBOLS,Constants.SYMBOLS_KEY);
+        urlBuilder.addQueryParameter(Constants.TYPES,Constants.TYPES_KEY);
+        urlBuilder.addQueryParameter(Constants.RANGE,Constants.RANGE_KEY);
+        urlBuilder.addQueryParameter(Constants.LAST,Constants.LAST_KEY);
         String url = urlBuilder.build().toString();
 
         Log.d("URL", "created is: "+url);
@@ -47,15 +49,31 @@ public class IEXService {
         ArrayList<Quote> quotes = new ArrayList<>();
 
         try {
-            String json = response.body().toString();
+            String json = response.body().string();
+            JSONObject jsonObject = new JSONObject(json);
 
-            if (response.isSuccessful()){
-                JSONObject quotesJson = new JSONObject(json);
-                Type collectionType = new TypeToken<List<Quote>>() {}.getType();
-                Gson gson = new GsonBuilder().create();
-
-                quotes = gson.fromJson(quotesJson.toString(), collectionType);
+            for (Iterator<String> it = jsonObject.keys(); it.hasNext(); ) {
+                Object key = it.next();
+                Log.d("Iterator ", "Result: "+key.toString());
             }
+
+
+//            Iterator<Quote> iterator =quotes.iterator();
+//            while (iterator.hasNext()){
+//                Quote quote=iterator.next();
+//                Log.d("Results", "Fetched"+quote.getHigh());
+//            }
+//            for (Iterator<Quote> iterator = json.keys(); iterator.hasNext();) {
+//                Quote key = iterator.next();
+//                Object value = json.get(key);
+//                if (value instanceof Quote) {
+//                    quotes.put(key, (Quote) value);
+//                }
+//            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
