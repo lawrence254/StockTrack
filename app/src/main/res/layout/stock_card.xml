@@ -19,14 +19,12 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
+            <ImageView
                 android:id="@+id/stockLetter"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                tools:text="Are you thre"
-                android:background="@color/colorAccent"
                 android:layout_margin="5dp"
                 android:layout_weight="1.5"/>
 
@@ -41,7 +39,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginBottom="3dp"
-                    android:text="Apple Inc."
+                    tools:text="Apple Inc."
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
                     android:textSize="17sp"/>
                 <LinearLayout
                     android:orientation="vertical"
@@ -73,7 +73,7 @@
                     android:layout_below="@id/stockName"
                     android:orientation="vertical"
                     android:layout_toRightOf="@id/verbs"
-                    android:layout_width="50dp"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content">
 
                     <TextView
