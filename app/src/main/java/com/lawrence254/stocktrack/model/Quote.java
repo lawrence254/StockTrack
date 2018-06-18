@@ -26,13 +26,13 @@ public class Quote {
     private Double open;
     @SerializedName("openTime")
     @Expose
-    private Integer openTime;
+    private Long openTime;
     @SerializedName("close")
     @Expose
     private Double close;
     @SerializedName("closeTime")
     @Expose
-    private Integer closeTime;
+    private Long closeTime;
     @SerializedName("high")
     @Expose
     private Double high;
@@ -50,10 +50,10 @@ public class Quote {
     private String latestTime;
     @SerializedName("latestUpdate")
     @Expose
-    private Integer latestUpdate;
+    private Long latestUpdate;
     @SerializedName("latestVolume")
     @Expose
-    private Integer latestVolume;
+    private Long latestVolume;
     @SerializedName("iexRealtimePrice")
     @Expose
     private Object iexRealtimePrice;
@@ -68,7 +68,7 @@ public class Quote {
     private Double delayedPrice;
     @SerializedName("delayedPriceTime")
     @Expose
-    private Integer delayedPriceTime;
+    private Long delayedPriceTime;
     @SerializedName("extendedPrice")
     @Expose
     private Double extendedPrice;
@@ -80,7 +80,7 @@ public class Quote {
     private Double extendedChangePercent;
     @SerializedName("extendedPriceTime")
     @Expose
-    private Integer extendedPriceTime;
+    private Long extendedPriceTime;
     @SerializedName("previousClose")
     @Expose
     private Double previousClose;
@@ -98,7 +98,7 @@ public class Quote {
     private Object iexVolume;
     @SerializedName("avgTotalVolume")
     @Expose
-    private Integer avgTotalVolume;
+    private Long avgTotalVolume;
     @SerializedName("iexBidPrice")
     @Expose
     private Object iexBidPrice;
@@ -113,7 +113,7 @@ public class Quote {
     private Object iexAskSize;
     @SerializedName("marketCap")
     @Expose
-    private Integer marketCap;
+    private Long marketCap;
     @SerializedName("peRatio")
     @Expose
     private Double peRatio;
@@ -175,11 +175,11 @@ public class Quote {
         this.open = open;
     }
 
-    public Integer getOpenTime() {
+    public Long getOpenTime() {
         return openTime;
     }
 
-    public void setOpenTime(Integer openTime) {
+    public void setOpenTime(Long openTime) {
         this.openTime = openTime;
     }
 
@@ -191,11 +191,11 @@ public class Quote {
         this.close = close;
     }
 
-    public Integer getCloseTime() {
+    public Long getCloseTime() {
         return closeTime;
     }
 
-    public void setCloseTime(Integer closeTime) {
+    public void setCloseTime(Long closeTime) {
         this.closeTime = closeTime;
     }
 
@@ -239,19 +239,19 @@ public class Quote {
         this.latestTime = latestTime;
     }
 
-    public Integer getLatestUpdate() {
+    public Long getLatestUpdate() {
         return latestUpdate;
     }
 
-    public void setLatestUpdate(Integer latestUpdate) {
+    public void setLatestUpdate(Long latestUpdate) {
         this.latestUpdate = latestUpdate;
     }
 
-    public Integer getLatestVolume() {
+    public Long getLatestVolume() {
         return latestVolume;
     }
 
-    public void setLatestVolume(Integer latestVolume) {
+    public void setLatestVolume(Long latestVolume) {
         this.latestVolume = latestVolume;
     }
 
@@ -287,11 +287,11 @@ public class Quote {
         this.delayedPrice = delayedPrice;
     }
 
-    public Integer getDelayedPriceTime() {
+    public Long getDelayedPriceTime() {
         return delayedPriceTime;
     }
 
-    public void setDelayedPriceTime(Integer delayedPriceTime) {
+    public void setDelayedPriceTime(Long delayedPriceTime) {
         this.delayedPriceTime = delayedPriceTime;
     }
 
@@ -319,11 +319,11 @@ public class Quote {
         this.extendedChangePercent = extendedChangePercent;
     }
 
-    public Integer getExtendedPriceTime() {
+    public Long getExtendedPriceTime() {
         return extendedPriceTime;
     }
 
-    public void setExtendedPriceTime(Integer extendedPriceTime) {
+    public void setExtendedPriceTime(Long extendedPriceTime) {
         this.extendedPriceTime = extendedPriceTime;
     }
 
@@ -367,11 +367,11 @@ public class Quote {
         this.iexVolume = iexVolume;
     }
 
-    public Integer getAvgTotalVolume() {
+    public Long getAvgTotalVolume() {
         return avgTotalVolume;
     }
 
-    public void setAvgTotalVolume(Integer avgTotalVolume) {
+    public void setAvgTotalVolume(Long avgTotalVolume) {
         this.avgTotalVolume = avgTotalVolume;
     }
 
@@ -407,11 +407,11 @@ public class Quote {
         this.iexAskSize = iexAskSize;
     }
 
-    public Integer getMarketCap() {
+    public Long getMarketCap() {
         return marketCap;
     }
 
-    public void setMarketCap(Integer marketCap) {
+    public void setMarketCap(Long marketCap) {
         this.marketCap = marketCap;
     }
 

@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lawrence254.stocktrack.Constants;
 import com.lawrence254.stocktrack.model.Quote;
+import com.lawrence254.stocktrack.model.StocksModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,16 +46,27 @@ public class IEXService {
         call.enqueue(callback);
 
     }
-    public ArrayList<Quote> processQuotes (Response response){
-        ArrayList<Quote> quotes = new ArrayList<>();
+    public ArrayList<StocksModel> processQuotes (Response response){
+        ArrayList<StocksModel> stocks = new ArrayList<>();
 
         try {
             String json = response.body().string();
+            Log.d("StocksModel", "response" + json);
             JSONObject jsonObject = new JSONObject(json);
+            Gson gson = new GsonBuilder().create();
 
             for (Iterator<String> it = jsonObject.keys(); it.hasNext(); ) {
                 Object key = it.next();
+
                 Log.d("Iterator ", "Result: "+key.toString());
+                StocksModel stocksModel = gson.fromJson(jsonObject.getJSONObject(key.toString()).toString(), StocksModel.class);
+                stocks.add(stocksModel);
+//                if (key instanceof StocksModel) {
+//                    Iterator<Quote>quoteIterator = (Iterator<Quote>) ((StocksModel) key).getQuote();
+//                    while (quoteIterator.hasNext()){
+//                        Log.d("Secondary", "Quote IT: "+quoteIterator);
+//                    }
+//                }
             }
 
 
@@ -77,7 +89,9 @@ public class IEXService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return quotes;
+        Log.d("CONTENT", ": "+stocks);
+        return stocks;
+
     }
 
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.lawrence254.stocktrack.R;
 import com.lawrence254.stocktrack.adapters.QuotesListAdapter;
 import com.lawrence254.stocktrack.model.Quote;
+import com.lawrence254.stocktrack.model.StocksModel;
 import com.lawrence254.stocktrack.service.IEXService;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    public ArrayList<Quote> mQuote = new ArrayList<>();
+    public ArrayList<StocksModel> mStocks = new ArrayList<>();
     private QuotesListAdapter quotesListAdapter;
     @BindView(R.id.recycler)RecyclerView mRecycler;
 
@@ -51,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                mQuote = iexService.processQuotes(response);
+                mStocks = iexService.processQuotes(response);
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        quotesListAdapter = new QuotesListAdapter(getApplicationContext(),mQuote);
+                        quotesListAdapter = new QuotesListAdapter(getApplicationContext(),mStocks);
                         mRecycler.setAdapter(quotesListAdapter);
 
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);

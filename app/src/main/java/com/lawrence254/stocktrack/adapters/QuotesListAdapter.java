@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.lawrence254.stocktrack.R;
 import com.lawrence254.stocktrack.model.Quote;
+import com.lawrence254.stocktrack.model.StocksModel;
 
 import java.util.ArrayList;
 
@@ -17,12 +18,12 @@ import butterknife.ButterKnife;
 
 public class QuotesListAdapter extends RecyclerView.Adapter<QuotesListAdapter.QuotesViewHolder> {
 
-    private ArrayList<Quote> mQuotes = new ArrayList<>();
+    private ArrayList<StocksModel> mStocks = new ArrayList<>();
     private Context mContext;
 
-    public QuotesListAdapter(Context context, ArrayList<Quote> quotes){
+    public QuotesListAdapter(Context context, ArrayList<StocksModel> quotes){
         mContext = context;
-        mQuotes = quotes;
+        mStocks = quotes;
     }
     @Override
     public QuotesListAdapter.QuotesViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
@@ -32,11 +33,11 @@ public class QuotesListAdapter extends RecyclerView.Adapter<QuotesListAdapter.Qu
     }
     @Override
     public void onBindViewHolder(QuotesListAdapter.QuotesViewHolder holder, int position) {
-        holder.bindQuotes(mQuotes.get(position));
+        holder.bindQuotes(mStocks.get(position));
     }
     @Override
     public int getItemCount() {
-        return mQuotes.size();
+        return mStocks.size();
     }
 
     public class QuotesViewHolder extends RecyclerView.ViewHolder{
@@ -51,11 +52,11 @@ public class QuotesListAdapter extends RecyclerView.Adapter<QuotesListAdapter.Qu
             ButterKnife.bind(this,itemView);
             mContext = itemView.getContext();
         }
-        public void bindQuotes(Quote quote){
-            mstockName.setText(quote.getCompanyName());
-            mHigh.setText(quote.getHigh().toString());
-            mLow.setText(quote.getLow().toString());
-            mChange.setText(quote.getChangePercent().toString()+"%");
+        public void bindQuotes(StocksModel stocksModel){
+            mstockName.setText(stocksModel.getQuote().getCompanyName());
+            mHigh.setText(String.valueOf(stocksModel.getQuote().getHigh()));
+            mLow.setText(String.valueOf(stocksModel.getQuote().getLow()));
+            mChange.setText(String.valueOf(stocksModel.getQuote().getChangePercent())+"%");
 
         }
     }
