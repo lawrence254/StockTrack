@@ -37,6 +37,7 @@
             android:name=".ui.Register"
             android:theme="@style/SplashTheme" />
         <activity android:name=".ui.profile" />
+        <activity android:name=".ui.StockDetailsActivity"></activity>
     </application>
 
 </manifest>
