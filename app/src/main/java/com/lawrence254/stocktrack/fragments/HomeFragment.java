@@ -1,6 +1,7 @@
 package com.lawrence254.stocktrack.fragments;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,8 +54,14 @@ public class HomeFragment extends Fragment {
     }
 
         private void getQuotes() {
+            final ProgressDialog progress = new ProgressDialog(getContext());
+            progress.setTitle("StockTrack");
+            progress.setMessage("Fetching Stocks...");
+            progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         final IEXService iexService = new IEXService();
 
+            progress.show();
+            // To dismiss the dialog
         iexService.loadStocks(new Callback(){
 
 
@@ -65,9 +72,11 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                progress.dismiss();
                 mStocks = iexService.processQuotes(response);
                 getActivity().runOnUiThread(new Runnable() {
+
+
                     @Override
                     public void run() {
                         quotesListAdapter = new QuotesListAdapter(getContext(),mStocks);
