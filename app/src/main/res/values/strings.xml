@@ -10,4 +10,7 @@
     <string name="enter_your_password">Enter your password</string>
     <string name="repeat_the_password">Repeat the password</string>
     <string name="register_me">Register Me!</string>
+    <string name="title_news">News</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profile</string>
 </resources>
