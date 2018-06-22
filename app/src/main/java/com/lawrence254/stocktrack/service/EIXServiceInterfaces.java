@@ -10,6 +10,6 @@ import retrofit2.http.Path;
 
 public interface EIXServiceInterfaces {
 
-    @GET("/stock/{symbol}/batch")
+    @GET("stock/{symbol}/batch")
     Call<List<Quote>> quote(@Path("symbol") String symbol);
 }

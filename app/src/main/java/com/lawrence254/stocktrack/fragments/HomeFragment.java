@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.GsonBuilder;
 import com.lawrence254.stocktrack.R;
@@ -44,7 +45,7 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this,root);
 
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.iextrading.com/1.0")
+                .baseUrl("https://api.iextrading.com/1.0/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         Retrofit retrofit = builder.build();
@@ -56,8 +57,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Quote>> call, Response<List<Quote>> response) {
                 List<Quote> quote = response.body();
+                quotesListAdapter = new QuotesListAdapter(getContext(),quote);
 
-                mRecycler.setAdapter(HomeFragment.this,quote);
+                mRecycler.setAdapter(quotesListAdapter);
 
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                 mRecycler.setLayoutManager(layoutManager);
@@ -66,7 +68,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Quote>> call, Throwable t) {
-
+                Toast.makeText(getContext(),"Issa error :=D",Toast.LENGTH_LONG);
             }
         });
 
