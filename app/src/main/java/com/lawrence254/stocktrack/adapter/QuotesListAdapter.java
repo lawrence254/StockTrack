@@ -1,4 +1,4 @@
-package com.lawrence254.stocktrack.adapters;
+package com.lawrence254.stocktrack.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
