@@ -3,6 +3,7 @@ package com.lawrence254.stocktrack.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import com.google.gson.GsonBuilder;
 import com.lawrence254.stocktrack.R;
 
+import butterknife.BindView;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -18,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class HomeFragment extends Fragment {
 
-
+    @BindView(R.id.recycler)RecyclerView mRecycler;
     public HomeFragment() {
         // Required empty public constructor
     }
