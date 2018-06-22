@@ -7,7 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.GsonBuilder;
 import com.lawrence254.stocktrack.R;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +28,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.home_fragment, container, false);
+        View root = inflater.inflate(R.layout.home_fragment, container, false);
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("https://api.iextrading.com/1.0")
+                .addConverterFactory(GsonConverterFactory.create());
+
+
+        return root;
     }
 
 }
