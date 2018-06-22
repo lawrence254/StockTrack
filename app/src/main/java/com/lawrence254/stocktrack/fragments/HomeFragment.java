@@ -3,6 +3,7 @@ package com.lawrence254.stocktrack.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,11 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Quote>> call, Response<List<Quote>> response) {
                 List<Quote> quote = response.body();
 
+                mRecycler.setAdapter(HomeFragment.this,quote);
+
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                mRecycler.setLayoutManager(layoutManager);
+                mRecycler.setHasFixedSize(true);
             }
 
             @Override
