@@ -10,9 +10,16 @@ import android.view.ViewGroup;
 
 import com.google.gson.GsonBuilder;
 import com.lawrence254.stocktrack.R;
+import com.lawrence254.stocktrack.model.Quote;
+import com.lawrence254.stocktrack.service.EIXServiceInterfaces;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -37,6 +44,24 @@ public class HomeFragment extends Fragment {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.iextrading.com/1.0")
                 .addConverterFactory(GsonConverterFactory.create());
+
+        Retrofit retrofit = builder.build();
+
+        EIXServiceInterfaces eixServiceInterfaces = retrofit.create(EIXServiceInterfaces.class);
+        Call<List<Quote>> call = eixServiceInterfaces.quote("aapl");
+
+        call.enqueue(new Callback<List<Quote>>() {
+            @Override
+            public void onResponse(Call<List<Quote>> call, Response<List<Quote>> response) {
+                List<Quote> quote = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Quote>> call, Throwable t) {
+
+            }
+        });
 
 
         return root;
