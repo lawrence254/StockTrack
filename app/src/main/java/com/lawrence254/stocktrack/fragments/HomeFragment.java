@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 import com.lawrence254.stocktrack.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -31,6 +32,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.home_fragment, container, false);
+        ButterKnife.bind(this,root);
 
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.iextrading.com/1.0")
