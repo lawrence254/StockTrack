@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.google.gson.GsonBuilder;
 import com.lawrence254.stocktrack.R;
+import com.lawrence254.stocktrack.adapter.QuotesListAdapter;
 import com.lawrence254.stocktrack.model.Quote;
 import com.lawrence254.stocktrack.service.EIXServiceInterfaces;
 
@@ -27,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-
+    private QuotesListAdapter quotesListAdapter;
     @BindView(R.id.recycler)RecyclerView mRecycler;
     public HomeFragment() {
         // Required empty public constructor
