@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.lawrence254.stocktrack.Constants;
+import com.lawrence254.stocktrack.model.News;
 import com.lawrence254.stocktrack.model.Quote;
 import com.lawrence254.stocktrack.model.StocksModel;
 
@@ -13,11 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,7 +44,7 @@ public class IEXService {
 
     }
     public ArrayList<StocksModel> processQuotes (Response response){
-        ArrayList<StocksModel> stocks = new ArrayList<>();
+        ArrayList<StocksModel> quotes = new ArrayList<>();
 
         try {
             String json = response.body().string();
@@ -59,9 +56,10 @@ public class IEXService {
                 Object key = it.next();
 
                 Log.d("Iterator ", "Result: " + key.toString());
-                StocksModel stocksModel = gson.fromJson(jsonObject.getJSONObject(key.toString()).toString(), StocksModel.class);
+                StocksModel quote = gson.fromJson(jsonObject.getJSONObject(key.toString()).toString(), StocksModel.class);
 
-                stocks.add(stocksModel);
+                quotes.add(quote);
+
             }
 
         } catch (IOException e) {
@@ -70,9 +68,31 @@ public class IEXService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("CONTENT", ": "+stocks);
-        return stocks;
+        Log.d("CONTENT", ": "+quotes);
+        return quotes;
 
     }
+    public ArrayList<News> processNews(Response response){
+        ArrayList<News> news = new ArrayList<>();
+        try {
+            String jObj = response.body().toString();
+            JSONObject jsonObject = new JSONObject(jObj);
+            Gson newsGson = new GsonBuilder().create();
+
+            for (Iterator<String> it = jsonObject.keys(); it.hasNext(); ) {
+                Object key = it.next();
+
+                News nes = newsGson.fromJson(jsonObject.getJSONObject(key.toString()).getJSONArray("news").toString(), News.class);
+
+                news.add(nes);
+                Log.d("Result for ", "processNews: "+news);
+            }
+
+            } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return news;
+    }
+
 
 }

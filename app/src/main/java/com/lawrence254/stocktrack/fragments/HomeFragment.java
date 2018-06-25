@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.lawrence254.stocktrack.R;
 import com.lawrence254.stocktrack.adapters.QuotesListAdapter;
+import com.lawrence254.stocktrack.model.Quote;
 import com.lawrence254.stocktrack.model.StocksModel;
 import com.lawrence254.stocktrack.service.IEXService;
 
