@@ -72,15 +72,15 @@ public class QuotesListAdapter extends RecyclerView.Adapter<QuotesListAdapter.Qu
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-//                    Intent intent = new Intent(v.getContext(), StockDetailsFragment.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putCharSequence("symbol",symbol);
+                    Intent intent = new Intent(v.getContext(), StockDetailsActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putCharSequence("symbol",symbol);
 
-                    StockDetailsFragment fragment = new StockDetailsFragment();
+//                    StockDetailsFragment fragment = new StockDetailsFragment();
                     Toast.makeText(mContext, "Sent Data "+symbol+" to StockDetailsFraagment", Toast.LENGTH_SHORT).show();
-                    fragment.setArguments(bundle);
-//                    intent.putExtra("symbol",symbol);
-//                    v.getContext().startActivity(intent);
+//                    fragment.setArguments(bundle);
+                    intent.putExtra("symbol",symbol);
+                    v.getContext().startActivity(intent);
 
                 }
             });

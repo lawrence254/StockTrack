@@ -26,5 +26,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem">Lorem ipsum dolor sit amet, mauris augue commodo metus libero quis dictum. Elit amet non erat. Justo nec, laoreet quisque nulla vestibulum, ipsum phasellus aut et voluptatem, urna nam laudantium ut quidem. Interdum ac erat velit nonummy, faucibus maecenas eu leo, cras adipiscing nec. Nisl luctus bibendum accumsan velit, amet ut etiam, ut est maecenas quis, mauris ultricies hymenaeos maecenas magna sed nulla, leo placerat ultrices.</string>
+    <string name="Source">Source:</string>
 
 </resources>

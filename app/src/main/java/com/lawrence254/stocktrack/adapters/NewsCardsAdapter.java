@@ -66,8 +66,9 @@ public class NewsCardsAdapter extends RecyclerView.Adapter<NewsCardsAdapter.News
 //                    .buildRound(first, color);
 //            mLetter.setImageDrawable(drawable);
 
+
             mHeadline.setText(newS.getHeadline());
-            mSource.setText(newS.getSource());
+            mSource.setText(mContext.getString(R.string.Source)+newS.getSource());
             mDescription.setText(newS.getSummary());
 //            mNewsImage.setText(String.valueOf(stocksModel.getQuote().getChangePercent())+"%");
 
