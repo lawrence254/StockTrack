@@ -14,8 +14,10 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.lawrence254.stocktrack.R;
 import com.lawrence254.stocktrack.fragments.NewsFragment;
+import com.lawrence254.stocktrack.model.News;
 import com.lawrence254.stocktrack.model.Quote;
 import com.lawrence254.stocktrack.model.StocksModel;
+import com.lawrence254.stocktrack.ui.StockDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -58,8 +60,22 @@ public class QuotesListAdapter extends RecyclerView.Adapter<QuotesListAdapter.Qu
             super(itemView);
             ButterKnife.bind(this,itemView);
             mContext = itemView.getContext();
+
+
         }
         public void bindQuotes(StocksModel stocksModel){
+            final String symbol = stocksModel.getQuote().getSymbol();
+
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Intent intent = new Intent(v.getContext(), NewsFragment.class);
+                    intent.putExtra("symbol",symbol);
+                    v.getContext().startActivity(intent);
+
+                }
+            });
+
             char fchar = stocksModel.getQuote().getCompanyName().charAt(0);
             String first = Character.toString(fchar);
 

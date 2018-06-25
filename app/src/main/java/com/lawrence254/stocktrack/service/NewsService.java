@@ -46,7 +46,7 @@ public class NewsService {
 
     }
 
-    public ArrayList<News> processNews(Response response){
+    public static ArrayList<News> processNews(Response response){
         ArrayList<News> news = new ArrayList<>();
 
         try {
