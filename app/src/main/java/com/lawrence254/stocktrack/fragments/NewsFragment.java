@@ -32,7 +32,8 @@ import okhttp3.Response;
  */
 public class NewsFragment extends Fragment {
 
-    @BindView(R.id.newsRecycle) RecyclerView mRecyclerView;
+    @BindView(R.id.newsRecycle)
+    RecyclerView mRecyclerView;
     private NewsCardsAdapter mAdapter;
 
     public ArrayList<News> mNews = new ArrayList<>();
@@ -46,48 +47,50 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 // Inflate the layout for this fragment
-       View root = inflater.inflate(R.layout.fragment_news, container, false);
+        View root = inflater.inflate(R.layout.fragment_news, container, false);
 
-        Intent intent = Objects.requireNonNull(getActivity()).getIntent();
-        String symbol = intent.getStringExtra("symbol");
+//        Intent intent = Objects.requireNonNull(getActivity()).getIntent();
+//        String symbol = intent.getStringExtra("symbol");
 
-       getNews(symbol);
+
+//        getNews(symbol);
         return root;
     }
 
-    private void getNews(String symbol) {
-        final ProgressDialog progress = new ProgressDialog(getContext());
-        progress.setTitle("StockTrack");
-        progress.setMessage("Fetching News...");
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        final NewsService newsService = new NewsService();
-
-        progress.show();
-
-        newsService.findNews(symbol, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-                mNews = NewsService.processNews(response);
-
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mAdapter = new NewsCardsAdapter(getContext(),mNews);
-                            mRecyclerView.setAdapter(mAdapter);
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                            mRecyclerView.setLayoutManager(layoutManager);
-                            mRecyclerView.setHasFixedSize(true);
-                        }
-                    });
-
-            }
-        });
-    }
-
 }
+//    private void getNews(String symbol) {
+//        final ProgressDialog progress = new ProgressDialog(getContext());
+//        progress.setTitle("StockTrack");
+//        progress.setMessage("Fetching News...");
+//        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+//        final NewsService newsService = new NewsService();
+//
+//        progress.show();
+//
+//        newsService.findNews(symbol, new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//
+//                mNews = NewsService.processNews(response);
+//
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            mAdapter = new NewsCardsAdapter(getContext(),mNews);
+//                            mRecyclerView.setAdapter(mAdapter);
+//                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+//                            mRecyclerView.setLayoutManager(layoutManager);
+//                            mRecyclerView.setHasFixedSize(true);
+//                        }
+//                    });
+//
+//            }
+//        });
+//    }
+//
+//}

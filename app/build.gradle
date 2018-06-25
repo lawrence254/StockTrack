@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 //    Graph dependency
     implementation 'com.jjoe64:graphview:4.2.2'
+
 }
