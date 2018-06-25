@@ -11,4 +11,6 @@ public class Constants {
     public static final String RANGE_KEY = "1m";
     public static final String LAST = "last";
     public static  final String LAST_KEY = "15";
+    public static  final String NEWS_URL = "https://api.iextrading.com/1.0/stock/";
+    public static final String NEWS_KEY = "news";
 }

@@ -1,6 +1,7 @@
 package com.lawrence254.stocktrack.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.lawrence254.stocktrack.R;
+import com.lawrence254.stocktrack.fragments.NewsFragment;
 import com.lawrence254.stocktrack.model.Quote;
 import com.lawrence254.stocktrack.model.StocksModel;
 
@@ -72,6 +74,8 @@ public class QuotesListAdapter extends RecyclerView.Adapter<QuotesListAdapter.Qu
             mHigh.setText(String.valueOf(stocksModel.getQuote().getHigh()));
             mLow.setText(String.valueOf(stocksModel.getQuote().getLow()));
             mChange.setText(String.valueOf(stocksModel.getQuote().getChangePercent())+"%");
+
+
 
         }
     }

@@ -72,27 +72,5 @@ public class IEXService {
         return quotes;
 
     }
-    public ArrayList<News> processNews(Response response){
-        ArrayList<News> news = new ArrayList<>();
-        try {
-            String jObj = response.body().toString();
-            JSONObject jsonObject = new JSONObject(jObj);
-            Gson newsGson = new GsonBuilder().create();
-
-            for (Iterator<String> it = jsonObject.keys(); it.hasNext(); ) {
-                Object key = it.next();
-
-                News nes = newsGson.fromJson(jsonObject.getJSONObject(key.toString()).getJSONArray("news").toString(), News.class);
-
-                news.add(nes);
-                Log.d("Result for ", "processNews: "+news);
-            }
-
-            } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return news;
-    }
-
 
 }
