@@ -15,53 +15,54 @@ import android.widget.Toast;
 import com.lawrence254.stocktrack.DB.DBHelper;
 import com.lawrence254.stocktrack.R;
 
+import java.util.Arrays;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-    @BindView(R.id.username)EditText mEmail;
-    @BindView(R.id.password) EditText mPassword;
-    @BindView(R.id.btnlogin)Button mLogin;
-
-    SQLiteDatabase db;
-    SQLiteOpenHelper openHelper;
-    Cursor cursor;
+    private static final int RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
 
-        openHelper=new DBHelper(this);
-        db = openHelper.getReadableDatabase();
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build());
 
-        mLogin.setOnClickListener(this);
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
     }
     @Override
-    public void onClick(View v){
-        if(v == mLogin){
-            String email = mEmail.getText().toString();
-            String pass = mPassword.getText().toString();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-            cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME + " WHERE " + DBHelper.uemail + "=? AND " + DBHelper.upass + "=?", new String[]{email, pass});
-            if (cursor != null && cursor.moveToFirst()) {
-                Log.d(Login.class.getSimpleName(), "cursor count: " + cursor.getCount());
-                if (cursor.getCount() > 0) {
-                    String id = cursor.getString(cursor.getColumnIndex("ID"));
-                    Toast.makeText(getApplicationContext(), "Login Success: ID"+id, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login.this,MainActivity.class);
-                    intent.putExtra("UID",id);
-                    startActivity(intent);
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
 
-                } else if(cursor.getCount() < 1){
-                    Toast.makeText(getApplicationContext(), "Account doesn't exist", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Login error", Toast.LENGTH_SHORT).show();
-                }
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Toast.makeText(this, "Welcome to StockTrack "+user, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(this,MainActivity.class);
+                startActivity(intent);
+
+                // ...
+            } else {
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+                // ...
+                response.getError().getErrorCode();
             }
         }
-        }
     }
-
+}
