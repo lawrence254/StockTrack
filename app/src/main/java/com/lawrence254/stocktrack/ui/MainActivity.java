@@ -36,10 +36,6 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-//    public ArrayList<StocksModel> mStocks = new ArrayList<>();
-//    private QuotesListAdapter quotesListAdapter;
-//    @BindView(R.id.recycler)RecyclerView mRecycler;
-
     @BindView(R.id.frameContainer) FrameLayout mFrameLayout;
     @BindView(R.id.navigationView) BottomNavigationView bottomNavigationView;
 
@@ -85,37 +81,5 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-//    private void getQuotes() {
-//        final IEXService iexService = new IEXService();
-//
-//        iexService.loadStocks(new Callback(){
-//
-//
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//
-//                mStocks = iexService.processQuotes(response);
-//                MainActivity.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        quotesListAdapter = new QuotesListAdapter(getApplicationContext(),mStocks);
-//                        mRecycler.setAdapter(quotesListAdapter);
-//
-//                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-//                        mRecycler.setLayoutManager(layoutManager);
-//                        mRecycler.setHasFixedSize(true);
-//                    }
-//                });
-//
-//            }
-//        });
-//}
-
 
 }

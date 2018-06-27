@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "745831002667",
+    "firebase_url": "https://stocktrack-1d8fb.firebaseio.com",
+    "project_id": "stocktrack-1d8fb",
+    "storage_bucket": "stocktrack-1d8fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745831002667:android:05afa40cedf8c441",
+        "android_client_info": {
+          "package_name": "com.lawrence254.stocktrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745831002667-6pk2gg9det25or7p6nnkjskds6sc9vql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lawrence254.stocktrack",
+            "certificate_hash": "b2f64cf4ab4295de76d9385aefeeddda2e5ec4f0"
+          }
+        },
+        {
+          "client_id": "745831002667-pf8cnprc40tlpmvjmv42esbbao0i73k7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWWUndBX0QrpptCaVpgmmLYTlBwnSavQE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745831002667-pf8cnprc40tlpmvjmv42esbbao0i73k7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

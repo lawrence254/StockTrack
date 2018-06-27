@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.lawrence254.stocktrack.DB.DBHelper;
 import com.lawrence254.stocktrack.R;
 
@@ -21,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
 
     @Override
@@ -50,7 +54,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Toast.makeText(this, "Welcome to StockTrack "+user, Toast.LENGTH_LONG).show();
+
+                Toast.makeText(this, "Welcome to StockTrack "+user.getDisplayName(), Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
