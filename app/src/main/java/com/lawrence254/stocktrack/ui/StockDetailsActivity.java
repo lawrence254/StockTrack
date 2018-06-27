@@ -10,15 +10,23 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.lawrence254.stocktrack.R;
 import com.lawrence254.stocktrack.adapters.NewsCardsAdapter;
+import com.lawrence254.stocktrack.model.Chart;
 import com.lawrence254.stocktrack.model.News;
 import com.lawrence254.stocktrack.service.NewsService;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -36,36 +44,70 @@ public class StockDetailsActivity extends AppCompatActivity {
 
     @BindView(R.id.graph)GraphView mGraph;
 
+    public ArrayList<Chart> mChart = new ArrayList<>();
+    public ArrayList<DataPoint> mDataPoints = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_details);
         ButterKnife.bind(this);
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 15),
-                new DataPoint(4, 33),
-                new DataPoint(5, 1),
-                new DataPoint(6, 3),
-                new DataPoint(7, 6),
-                new DataPoint(8, 17),
-                new DataPoint(9, 25),
-                new DataPoint(10, 0)
-        });
-        mGraph.addSeries(series);
-
         Intent intent = Objects.requireNonNull(StockDetailsActivity.this).getIntent();
         String symbol = intent.getStringExtra("symbol");
         if (symbol != null) {
+            getChart(symbol);
             getNews(symbol);
         }
         else {
             Toast.makeText(getApplicationContext() ,"Symbol not retrieved correctly", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void getChart(String symbol) {
+        final NewsService newsService = new NewsService();
+        newsService.getChart(symbol, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mChart = NewsService.processChart(response);
+
+                for (int i =0;i<mChart.size();i++){
+                    int high = mChart.get(i).getHigh().intValue();
+                    SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        Date date = sdf.parse(mChart.get(i).getDate());
+                        Log.w("Date ", "onResponse: "+date );
+//                        long ddate = (long) date/1000;
+
+                        DataPoint dataPoint = new DataPoint(date, high);
+                        mDataPoints.add(dataPoint);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                StockDetailsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        LineGraphSeries<DataPoint> series
+                                = new LineGraphSeries<>(mDataPoints.toArray(new DataPoint[mDataPoints.size()]));
+
+//                        mGraph.getViewport().setScalable(true);
+//                        mGraph.getViewport().setScalableY(true);
+                        mGraph.addSeries(series);
+                        mGraph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(StockDetailsActivity.this));
+//                        mGraph.getGridLabelRenderer().setHumanRounding(false);
+                        }
+                });
+            }
+        });
+    }
+
     private void getNews(String symbol) {
         final ProgressDialog progress = new ProgressDialog(StockDetailsActivity.this);
         progress.setTitle("StockTrack");

@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lawrence254.stocktrack.Constants;
+import com.lawrence254.stocktrack.model.Chart;
 import com.lawrence254.stocktrack.model.News;
 import com.lawrence254.stocktrack.model.Quote;
 
@@ -52,20 +53,6 @@ public class NewsService {
         try {
             String json = response.body().string();
 
-//            JSONArray jsonArray = new JSONArray(json);
-//            StringBuilder sb = new StringBuilder();
-
-//            for (int i = 0;i<jsonArray.length();i++){
-//                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                String headline = jsonObject.getString("headline");
-//                String source = jsonObject.getString("source");
-//                String summary  = jsonObject.getString("summary");
-//                String image_url = jsonObject.getString("image");
-//
-//
-//                sb.insert(0,headline,source,summary,image_url);
-//            }
-
             if (response.isSuccessful()){
                 JSONArray quotesJson = new JSONArray(json);
                 Type collectionType = new TypeToken<List<News>>() {}.getType();
@@ -83,4 +70,47 @@ public class NewsService {
 
         return news;
     }
+
+    public static void getChart(String symbol, Callback callback) {
+        HttpUrl.Builder builder = HttpUrl.parse(Constants.NEWS_URL).newBuilder();
+        builder.addPathSegment(symbol);
+        builder.addPathSegment(Constants.CHART_KEY);
+        builder.addPathSegment(Constants.RANGE_KEY);
+
+        String url = builder.build().toString();
+        Log.d("URL FOR ", "findNews is: "+url);
+
+        Request request = new Request.Builder().url(url).build();
+
+        Call call = client.newCall(request);
+
+        call.enqueue(callback);
+
+    }
+
+    public static ArrayList<Chart> processChart(Response response){
+        ArrayList<Chart> chart = new ArrayList<>();
+
+        try {
+            String json = response.body().string();
+
+            if (response.isSuccessful()){
+                JSONArray chartJson = new JSONArray(json);
+                Type collectionType = new TypeToken<List<Chart>>() {}.getType();
+
+                Gson gson = new GsonBuilder().create();
+
+                chart = gson.fromJson(chartJson.toString(), collectionType);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return chart;
+    }
+
+
 }
