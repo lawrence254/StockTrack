@@ -15,5 +15,5 @@ public class Constants {
     public static final String NEWS_KEY = "news";
     public static final String CHART_KEY="chart";
 //    https://api.iextrading.com/1.0/stock/aapl/chart/1m
-
+    public static final String REF_URL = "https://api.iextrading.com/1.0/ref-data/symbols";
 }

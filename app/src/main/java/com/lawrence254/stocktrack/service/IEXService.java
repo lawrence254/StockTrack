@@ -73,4 +73,18 @@ public class IEXService {
 
     }
 
+    public static void loadRefs(Callback callback){
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.REF_URL).newBuilder();
+        String url = urlBuilder.build().toString();
+
+        Log.d("URL", "created is: "+url);
+
+        Request request = new Request.Builder().url(url).build();
+
+        Call call = client.newCall(request);
+
+        call.enqueue(callback);
+
+    }
+
 }
