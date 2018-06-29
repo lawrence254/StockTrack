@@ -1,6 +1,8 @@
 package com.lawrence254.stocktrack.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -18,7 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.lawrence254.stocktrack.DB.DBHelper;
 import com.lawrence254.stocktrack.R;
+import com.lawrence254.stocktrack.UserPrefs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,11 +31,16 @@ import butterknife.ButterKnife;
 
 public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "News";
+    ArrayList<String> selectedItems = new ArrayList<String>();
+    String savedItems = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
@@ -55,11 +64,31 @@ public class Login extends AppCompatActivity {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                Toast.makeText(this, "Welcome to StockTrack "+user.getDisplayName(), Toast.LENGTH_LONG).show();
+                if(sharedpreferences.contains(MyPREFERENCES)) {
+                    savedItems = sharedpreferences.getString(MyPREFERENCES.toString(), "");
+                    selectedItems.addAll(Arrays.asList(savedItems.split(",")));
 
-                Intent intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
+                }
 
+                Toast.makeText(this, "Welcome to StockTrack "+user.getDisplayName()+". Your news sources: "+savedItems, Toast.LENGTH_LONG).show();
+                if(sharedpreferences.contains(MyPREFERENCES)){
+//                    if(sharedpreferences.contains(MyPREFERENCES)) {
+//                        String savedItems = sharedpreferences.getString(MyPREFERENCES.toString(), "");
+//                        selectedItems.addAll(Arrays.asList(savedItems.split(",")));
+//                        if (selectedItems.size() >= 1) {
+//                            Intent intent = new Intent(this, MainActivity.class);
+//                            startActivity(intent);
+//                        } else {
+//                            Intent intent = new Intent(this, UserPrefs.class);
+//                            startActivity(intent);
+//                        }
+//                    }
+                    Intent intent = new Intent(this,MainActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(this,UserPrefs.class);
+                    startActivity(intent);
+                }
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the

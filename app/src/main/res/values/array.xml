@@ -12,17 +12,16 @@
         <item>The Economist</item>
         <item>The Wall Street Journal</item>
     </string-array>
-    <string-array name="sites">
-        <item>http://www.afr.com</item>
-        <item>http://www.bloomberg.com</item>
-        <item>http://www.businessinsider.com</item>
-        <item>http://uk.businessinsider.com</item>
-        <item>http://www.cnbc.com</item>
-        <item>http://business.financialpost.com</item>
-        <item>http://www.ft.com/home/uk</item>
-        <item>http://fortune.com</item>
-        <item>http://www.economist.com</item>
-        <item>http://www.wsj.com</item>
-
+    <string-array name="newsId">
+        <item>australian-financial-review</item>
+        <item>bloomberg</item>
+        <item>business-insider</item>
+        <item>business-insider-uk</item>
+        <item>cnbc</item>
+        <item>financial-post</item>
+        <item>financial-times</item>
+        <item>fortune</item>
+        <item>the-economist</item>
+        <item>the-wall-street-journal</item>
     </string-array>
 </resources>
