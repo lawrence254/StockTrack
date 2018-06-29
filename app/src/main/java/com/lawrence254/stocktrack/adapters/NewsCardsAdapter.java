@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lawrence254.stocktrack.R;
+import com.lawrence254.stocktrack.model.Articles;
 import com.lawrence254.stocktrack.model.News;
 
 import java.util.ArrayList;

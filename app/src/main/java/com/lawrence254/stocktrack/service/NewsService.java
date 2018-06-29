@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lawrence254.stocktrack.Constants;
+import com.lawrence254.stocktrack.model.Articles;
 import com.lawrence254.stocktrack.model.Chart;
 import com.lawrence254.stocktrack.model.News;
 import com.lawrence254.stocktrack.model.Quote;
@@ -37,7 +38,7 @@ public class NewsService {
         builder.addPathSegment(Constants.LAST_KEY);
 
         String url = builder.build().toString();
-        Log.d("URL FOR ", "findNews is: "+url);
+//        Log.d("URL FOR ", "findNews is: "+url);
 
         Request request = new Request.Builder().url(url).build();
 
@@ -78,7 +79,7 @@ public class NewsService {
         builder.addPathSegment(Constants.RANGE_KEY);
 
         String url = builder.build().toString();
-        Log.d("URL FOR ", "findNews is: "+url);
+//        Log.d("URL FOR ", "findNews is: "+url);
 
         Request request = new Request.Builder().url(url).build();
 
@@ -111,6 +112,40 @@ public class NewsService {
 
         return chart;
     }
+    public static void getAllNews(String sites, Callback callback) {
+        HttpUrl.Builder builder = HttpUrl.parse(Constants.NEWS_SITES).newBuilder();
+        builder.addQueryParameter(Constants.SOURCE_KEY,sites);
+        builder.addQueryParameter(Constants.KEY,Constants.NEWS_API);
+//        builder.addPathSegment(sites);
+//        builder.addPathSegment(Constants.CHART_KEY);
+//        builder.addPathSegment(Constants.RANGE_KEY);
 
+        String url = builder.build().toString();
+        Log.d("URL FOR ", "NEWS is: "+url);
 
+        Request request = new Request.Builder().url(url).build();
+
+        Call call = client.newCall(request);
+
+        call.enqueue(callback);
+
+    }
+    public static ArrayList<Articles> processAllNews(Response response){
+        ArrayList<Articles> article = new ArrayList<>();
+        try {
+            String json = response.body().string();
+            if (response.isSuccessful()){
+                JSONObject jsonObject = new JSONObject(json);
+                JSONArray newsJson = jsonObject.getJSONArray("articles");
+                Type collectionType = new TypeToken<List<Articles>>() {}.getType();
+                Gson gson = new GsonBuilder().create();
+                article = gson.fromJson(newsJson.toString(), collectionType);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return article;
+    }
 }

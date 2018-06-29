@@ -111,7 +111,7 @@ public class StockDetailsActivity extends AppCompatActivity {
     private void getNews(String symbol) {
         final ProgressDialog progress = new ProgressDialog(StockDetailsActivity.this);
         progress.setTitle("StockTrack");
-        progress.setMessage("Fetching News...");
+        progress.setMessage("Fetching News And Stock Performance...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         final NewsService newsService = new NewsService();
 
