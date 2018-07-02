@@ -95,14 +95,7 @@
                         android:id="@+id/sChange"
                         android:text="-18%"/>
                 </LinearLayout>
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/colorAccent"
-                    android:text="View News"
-                    android:layout_margin="2dp"
-                    android:textColor="@color/secondaryTextColor"/>
+
             </RelativeLayout>
 
 
