@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="news">
+        <item>Australian Financial Review</item>
+        <item>Bloomberg</item>
+        <item>Business Insider</item>
+        <item>Business Insider (UK)</item>
+        <item>CNBC</item>
+        <item>Financial Post</item>
+        <item>Financial Times</item>
+        <item>Fortune</item>
+        <item>The Economist</item>
+        <item>The Wall Street Journal</item>
+    </string-array>
+    <string-array name="newsId">
+        <item>australian-financial-review</item>
+        <item>bloomberg</item>
+        <item>business-insider</item>
+        <item>business-insider-uk</item>
+        <item>cnbc</item>
+        <item>financial-post</item>
+        <item>financial-times</item>
+        <item>fortune</item>
+        <item>the-economist</item>
+        <item>the-wall-street-journal</item>
+    </string-array>
+</resources>

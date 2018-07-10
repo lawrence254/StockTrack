@@ -19,10 +19,10 @@ public class profile extends AppCompatActivity {
     SQLiteDatabase db;
     SQLiteOpenHelper openHelper;
     Cursor cursor;
-    @BindView(R.id.ufn)
+    @BindView(R.id.name)
     TextView mfirst;
-    @BindView(R.id.uln) TextView mlast;
-    @BindView(R.id.uem) TextView memail;
+    @BindView(R.id.email) TextView mlast;
+    @BindView(R.id.provider) TextView memail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

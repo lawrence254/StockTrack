@@ -1,6 +1,8 @@
 package com.lawrence254.stocktrack.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,56 +14,89 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.lawrence254.stocktrack.DB.DBHelper;
 import com.lawrence254.stocktrack.R;
+import com.lawrence254.stocktrack.UserPrefs;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
-    @BindView(R.id.username)EditText mEmail;
-    @BindView(R.id.password) EditText mPassword;
-    @BindView(R.id.btnlogin)Button mLogin;
-
-    SQLiteDatabase db;
-    SQLiteOpenHelper openHelper;
-    Cursor cursor;
+public class Login extends AppCompatActivity {
+    private static final int RC_SIGN_IN = 123;
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "News";
+    ArrayList<String> selectedItems = new ArrayList<String>();
+    String savedItems = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        openHelper=new DBHelper(this);
-        db = openHelper.getReadableDatabase();
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build());
 
-        mLogin.setOnClickListener(this);
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
     }
     @Override
-    public void onClick(View v){
-        if(v == mLogin){
-            String email = mEmail.getText().toString();
-            String pass = mPassword.getText().toString();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-            cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME + " WHERE " + DBHelper.uemail + "=? AND " + DBHelper.upass + "=?", new String[]{email, pass});
-            if (cursor != null && cursor.moveToFirst()) {
-                Log.d(Login.class.getSimpleName(), "cursor count: " + cursor.getCount());
-                if (cursor.getCount() > 0) {
-                    String id = cursor.getString(cursor.getColumnIndex("ID"));
-                    Toast.makeText(getApplicationContext(), "Login Success: ID"+id, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login.this,MainActivity.class);
-                    intent.putExtra("UID",id);
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if(sharedpreferences.contains(MyPREFERENCES)) {
+                    savedItems = sharedpreferences.getString(MyPREFERENCES.toString(), "");
+                    selectedItems.addAll(Arrays.asList(savedItems.split(",")));
+
+                }
+
+                Toast.makeText(this, "Welcome to StockTrack "+user.getDisplayName()+". Your news sources: "+savedItems, Toast.LENGTH_LONG).show();
+                if(sharedpreferences.contains(MyPREFERENCES)){
+//                    if(sharedpreferences.contains(MyPREFERENCES)) {
+//                        String savedItems = sharedpreferences.getString(MyPREFERENCES.toString(), "");
+//                        selectedItems.addAll(Arrays.asList(savedItems.split(",")));
+//                        if (selectedItems.size() >= 1) {
+//                            Intent intent = new Intent(this, MainActivity.class);
+//                            startActivity(intent);
+//                        } else {
+//                            Intent intent = new Intent(this, UserPrefs.class);
+//                            startActivity(intent);
+//                        }
+//                    }
+                    Intent intent = new Intent(this,MainActivity.class);
                     startActivity(intent);
-
-                } else if(cursor.getCount() < 1){
-                    Toast.makeText(getApplicationContext(), "Account doesn't exist", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(this,UserPrefs.class);
+                    startActivity(intent);
                 }
-                else {
-                    Toast.makeText(getApplicationContext(), "Login error", Toast.LENGTH_SHORT).show();
-                }
+                // ...
+            } else {
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+                // ...
+                response.getError().getErrorCode();
             }
         }
-        }
     }
-
+}
